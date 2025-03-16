@@ -14,7 +14,7 @@ void promptRemove(TodoList* tl) {
 
   int index = atoi(buff);
 
-  todolistPop(tl, index);
+  todolistPop(tl, index-1);
 }
 
 void promptToggle(TodoList* tl) {
