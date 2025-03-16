@@ -60,8 +60,12 @@ void      todolistPrint(TodoList* tl) {
     Task* task = listAt(tl, i);
     char state = task->state == Done ? 'X' : ' ';
 
-    printf(" [%c] %s\n", state, task->content);
+    printf("%lu [%c] %s\n", i+1, state, task->content);
   }
+}
+
+void      todolistPop(TodoList* tl, size_t index) {
+  listPop(tl, index);
 }
 
 void      todolistToggle(TodoList* tl, char* content) {

@@ -35,5 +35,8 @@ Task*     todolistFind(TodoList* tl, char* content);
 //
 void      todolistPrint(TodoList* tl);
 
+// Pop an item with the index
+void      todolistPop(TodoList* tl, size_t index);
+
 // Toggle the state of a task
 void      todolistToggle(TodoList* tl, char* content);
