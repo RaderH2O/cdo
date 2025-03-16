@@ -20,10 +20,10 @@ void  listAppend(List* list, void* value) {
     return;
   }
 
-  while (list->length >= list->capacity) {
+  while (list->length >= list->capacity - 1) {
     list->capacity *= 2;
 
-    void** new_data = realloc(list->data, list->capacity);
+    void** new_data = realloc(list->data, sizeof(void*) * list->capacity);
     list->data = new_data;
   }
 
