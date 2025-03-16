@@ -4,13 +4,26 @@
 
 #include "todo.h"
 
+void promptRemove(TodoList* tl) {
+
+  size_t line_length = sizeof(char) * 256;
+  char* buff = malloc(line_length);
+
+  printf("Enter the id of the todo you want to remove\n> ");
+  int inp = getline(&buff, &line_length, stdin);
+
+  int index = atoi(buff);
+
+  todolistPop(tl, index);
+}
+
 void promptToggle(TodoList* tl) {
 
   size_t line_length = sizeof(char) * 256;
   char* buff = malloc(line_length);
 
   printf("Enter the id of the todo you want to change\n> ");
-  getline(&buff, &line_length, stdin);
+  int inp = getline(&buff, &line_length, stdin);
   int index = atoi(buff);
 
   Task* task = listAt(tl, index-1);
@@ -23,7 +36,7 @@ void promptAppend(TodoList* tl) {
   char* buff = malloc(line_length);
 
   printf("Enter the content of the todo you want to append\n> ");
-  getline(&buff, &line_length, stdin);
+  int inp = getline(&buff, &line_length, stdin);
 
   for (int i = 0; i < 256; i++) {
     if (buff[i] == '\n') {
@@ -39,7 +52,7 @@ int prompt(TodoList* tl) {
 
   printf("\n\n### CDO - Terminal TODO ###\n");
   todolistPrint(tl);
-  printf("What do you want to do? ( (a)dd, (t)oggle, (q)uit )\n> ");
+  printf("What do you want to do? ( (a)dd, (r)emove, (t)oggle, (q)uit )\n> ");
 
   size_t size = sizeof(char) * 256;
   char* buff = malloc(size);
@@ -48,6 +61,10 @@ int prompt(TodoList* tl) {
   switch (buff[0]) {
     case 'a':
       promptAppend(tl);
+      break;
+
+    case 'r':
+      promptRemove(tl);
       break;
 
     case 't':
