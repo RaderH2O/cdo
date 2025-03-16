@@ -4,10 +4,20 @@
 
 #include "todo.h"
 
-void promptToggle(TodoList* tl);
+void promptToggle(TodoList* tl) {
+
+  size_t line_length = sizeof(char) * 256;
+  char* buff = malloc(line_length);
+
+  printf("Enter the id of the todo you want to change\n> ");
+  getline(&buff, &line_length, stdin);
+  int index = atoi(buff);
+
+  Task* task = listAt(tl, index-1);
+  task->state = task->state == Pending ? Done : Pending;
+}
 
 void promptAppend(TodoList* tl) {
-
 
   size_t line_length = sizeof(char) * 256;
   char* buff = malloc(line_length);
@@ -31,10 +41,12 @@ int prompt(TodoList* tl) {
   todolistPrint(tl);
   printf("What do you want to do? ( (a)dd, (t)oggle, (q)uit )\n> ");
 
-  char buff[256];
-  char* inp = fgets(buff, sizeof(buff), stdin);
+  char* buff;
 
-  switch (inp[0]) {
+  size_t size = sizeof(buff);
+  int inp = getline(&buff, &size, stdin);
+
+  switch (buff[0]) {
     case 'a':
       promptAppend(tl);
       break;
