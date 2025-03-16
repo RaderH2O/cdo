@@ -37,13 +37,12 @@ void promptAppend(TodoList* tl) {
 
 int prompt(TodoList* tl) {
 
-  printf("### CDO - Terminal TODO ###\n");
+  printf("\n\n### CDO - Terminal TODO ###\n");
   todolistPrint(tl);
   printf("What do you want to do? ( (a)dd, (t)oggle, (q)uit )\n> ");
 
-  char* buff;
-
-  size_t size = sizeof(buff);
+  size_t size = sizeof(char) * 256;
+  char* buff = malloc(size);
   int inp = getline(&buff, &size, stdin);
 
   switch (buff[0]) {
